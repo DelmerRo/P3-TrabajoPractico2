@@ -199,32 +199,57 @@ x <- c(c(0:20),c(20:30))
 print(ifelse(mean(x) > median(x),"La Mediana es mas grande que la Media.","La Media es mas grande que la Mediana."))
 
 #Mostrar otros tales que mean(x) = min(x).
+x <- c(67,67,67)
+x <- c(58,58,58,58,58)
+print(ifelse(mean(x) == min(x),"La Media es igual al minimo","La Media no es igual al minimo."))
 
 #Mostrar otros tales que median(x) = max(x).
+x <- c(66,67,67)
+x <- c(56,56,58,58,58)
+print(ifelse(median(x) == max(x),"La Mediana es igual al maximo","La Mediana no es igual al maximo."))
 
 #Verificar si al calcular un "promedio de promedios" siempre dará lo mismo que calcular el promedio de todos los valores. Por ejemplo, si alguien tiene calculados separadamente los promedios de calificaciones por año, y luego promedia estos valores, ¿necesariamente le dará lo mismo que promediar todas sus notas?
+# Generar una matriz aleatoria con 5 años de calificaciones y 10 calificaciones por año
+calificaciones <- matrix(rnorm(50, 70, 10), nrow = 5)
+
+# Calcular el promedio de todos los valores
+promedio_total <- mean(calificaciones)
+promedio_total
+
+# Calcular los promedios por año y el promedio de los promedios
+promedios_por_año <- apply(calificaciones, 1, mean)
+promedio_promedios <- mean(promedios_por_año)
+
+# Comparar los resultados
+print(ifelse(promedio_total == promedio_promedios,"El promedio total es igual al promedio de los promedios","El promedio total no es igual al promedio de los promedios"))
 
 
-Rangos
+##Rangos
+#range(x) devuelve el rango de un vector de números, ese rango siempre consiste en 2 números, que son el mínimo y el máximo del vector
 
-range(x) devuelve el rango de un vector de números, ese rango siempre consiste en 2 números, que son el mínimo y el máximo del vector
-
-Pregunta fácil: ¿Cómo definiría la función range() si no estuviera ya definida?
+#Pregunta fácil: ¿Cómo definiría la función range() si no estuviera ya definida?
+  #Como una funcion que devuelve el valor minimo y el valor maximo en ese orden en un vector)
   
-  ¿Es verdad que siempre vale mean(x) - median(x) <= diff(range(x))?
-  
-  IQR(x) devuelve el inter quartile range de x, que es la diferencia entre los 2 cuartiles del medio sobre los elementos de x
+#¿Es verdad que siempre vale mean(x) - median(x) <= diff(range(x))?
+#Si
+x <- round(runif(10)*100)
+media <- mean(x)
+mediana <- median(x)
+difRango <- diff(range(x))
+print(ifelse(media - mediana <= difRango,"La resta de la media y la mediana es menor o igual a la diferencia entre rangos","La resta de la media y la mediana es mayor a la diferencia entre rangos"))                 
 
-Observar lo que devuelve IQR(seq(1, 5, 1)).
+#IQR(x) devuelve el inter quartile range de x, que es la diferencia entre los 2 cuartiles del medio sobre los elementos de x
+#Observar lo que devuelve 
+IQR(seq(1, 5, 1))
 
-Comprobar o convencerse de que siempre vale diff(IQR(x)) <= diff(range(x)).
+#Comprobar o convencerse de que siempre vale diff(IQR(x)) <= diff(range(x)).
+x <- c(10, 15, 12, 17, 14, 19, 16)
+
+#diff(IQR(x)) siempre devuelve un vector vacio(numeric(0)) por lo cual me sale error(logical(0)) , es una duda que tengo.
+diffIQR <- diff(IQR(x))
+diffRange <- diff(range(x))
+print(ifelse(diff(IQR(x)) <= diff(range(x)), "diff(IQR(x)) es menor o igual que diff(range(x))", "diff(IQR(x)) no es menor o igual que diff(range(x))"))
 
 
 
-Escribir scripts para calcular lo que sigue, usando el código más reducido posible (comentarios y explicación sobre esto, en la próxima clase):
-  
-  el producto escalar de dos vectores dados
 
-el producto de dos matrices dadas
-
-la norma euclidiana de un vector dado
